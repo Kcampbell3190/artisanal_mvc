@@ -71,4 +71,4 @@ def update_one_product(id):
         db.session.commit()      
         return ProductSchema().dump(products)
     else:
-        return {'error': f'Card not found with id {id}'}, 404
+        return {'error': f'Product not found with id {id}'}, 404
