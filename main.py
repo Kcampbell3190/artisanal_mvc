@@ -1,5 +1,5 @@
 from flask import Flask
-from db import db, ma
+from init import db, ma
 from controllers.products_controller import products_bp
 import os
 
