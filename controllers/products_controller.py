@@ -45,13 +45,13 @@ def create_product():
 
 @products_bp.route('/<int:id>/', methods=['DELETE'])
 @jwt_required()
-def delete_one_card(id):
+def delete_one_product(id):
     authorize()
 
     stmt = db.select(Product).filter_by(id=id)
-    card = db.session.scalar(stmt)
-    if card:
-        db.session.delete(card)
+    product = db.session.scalar(stmt)
+    if product:
+        db.session.delete(product)
         db.session.commit()
         return {'message': f"Product '{product.title}' deleted successfully"}
     else:

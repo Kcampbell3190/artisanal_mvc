@@ -12,14 +12,14 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
 
-    cards = db.relationship('Card', back_populates='user', cascade='all, delete')
+    Users = db.relationship('User', back_populates='user', cascade='all, delete')
     comments = db.relationship('Comment', back_populates='user', cascade='all, delete')
 
 
 class UserSchema(ma.Schema):
     """Help"""
-    cards = fields.List(fields.Nested('CardSchema', exclude=['user']))
+    users = fields.List(fields.Nested('UserSchema', exclude=['user']))
     comments = fields.List(fields.Nested('CommentSchema', exclude=['user']))
 
     class Meta:
-        fields = ('id', 'name', 'email', 'password', 'is_admin', 'cards', 'comments')
+        fields = ('id', 'name', 'email', 'password', 'is_admin', 'products')
