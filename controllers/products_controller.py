@@ -56,3 +56,19 @@ def delete_one_card(id):
         return {'message': f"Product '{product.title}' deleted successfully"}
     else:
         return {'error': f'Product not found with id {id}'}, 404
+
+
+@products_bp.route('/<int:id>/', methods=['PUT', 'PATCH'])
+@jwt_required()
+def update_one_product(id):
+    stmt = db.select(Product).filter_by(id=id)
+    product = db.session.scalar(stmt)
+    if product:
+        product.title = request.json.get('title') or product.title
+        product.description = request.json.get('description') or product.description
+        product.status = request.json.get('status') or product.status
+        product.priority = request.json.get('priority') or product.priority
+        db.session.commit()      
+        return ProductSchema().dump(products)
+    else:
+        return {'error': f'Card not found with id {id}'}, 404
