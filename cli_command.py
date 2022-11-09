@@ -1,8 +1,8 @@
 from flask import Blueprint
 from init import db, bcrypt
 #from datetime import date
-from models.product import Product, ProductSchema
-from models.user import User, UserSchema
+from models.product import Product #ProductSchema
+from models.user import User
 #from models.user import User
 #from models.comment import Comment
 
