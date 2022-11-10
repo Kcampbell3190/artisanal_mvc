@@ -34,39 +34,21 @@ def seed_db():
             name='John Cleese',
             email='someone@spam.com',
             password=bcrypt.generate_password_hash('12345').decode('utf-8')
-        )
+        ), 
+         User(
+            name='Kamram',
+            email='k@spam.com',
+            password=bcrypt.generate_password_hash('12345').decode('utf-8')
+        ), 
+
     ]
 
     db.session.add_all(users)
     db.session.commit()
     
-    products = [
-       Product(
-            title = "start first item",
-            description = "stage 1 starting the products table",
-            status = True,
-            creative = "Lachlan and ASD"
-           ),
-    
-        Product(
-            title = "second item",
-            description = "stage 2 seeding database",
-            status = True,
-            creative = "Jenny and ADHD",
-           ),
-        Product(
-            title = "third item",
-            description = "stage 3 seeding database",
-            status = True,
-            creative = "Jonathan and Depression"
-
-        ),
-    ]
-    db.session.add_all(products)
-    db.session.commit()
-    
     categories = [
         Category (
+            
              name = "Candles",
              description = "handmade candles by one of our artisans",
              abiltiy = "ASD, ADHD"
@@ -85,26 +67,58 @@ def seed_db():
     db.session.add_all(categories)
     db.session.commit()
 
+    products = [
+       Product(
+            user_id = "1",
+            category_id = "1",
+            title = "start first item",
+            description = "stage 1 starting the products table",
+            status = True,
+            creative = "Lachlan and ASD"
+           ),
+    
+        Product(
+            user_id = "2",
+            category_id = "2",
+            title = "second item",
+            description = "stage 2 seeding database",
+            status = True,
+            creative = "Jenny and ADHD",
+           ),
+        Product(
+            user_id = "3",
+            category_id = "3",
+            title = "third item",
+            description = "stage 3 seeding database",
+            status = True,
+            creative = "Jonathan and Depression"
+
+        ),
+    ]
+    db.session.add_all(products)
+    db.session.commit()
+    
+
     orders = [
         Order (
-            user_id = "007",
-            product_id = "123",
+            user_id = "1",
+            product_id = "1",
             amount = 50,
             quantity = 1,
             status = True
 
         ),
         Order (
-            user_id = "008",
-            product_id = "333",
+            user_id = "1",
+            product_id = "1",
             amount = 150,
             quantity = 2,
             status = True
 
         ),
         Order (
-            user_id = "009",
-            product_id = "222",
+            user_id = "1",
+            product_id = "1",
             amount = 30,
             quantity = 3,
             status = True
