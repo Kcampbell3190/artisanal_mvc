@@ -1,12 +1,10 @@
 from flask import Blueprint
 from init import db, ma, bcrypt
-#from datetime import date
 from models.product import Product #ProductSchema
 from models.user import User
 from models.order import Order
 from models.categories import Category
-#from models.user import User
-#from models.comment import Comment
+
 
 
 db_commands = Blueprint('db', __name__)
@@ -28,17 +26,22 @@ def seed_db():
         User(
             email='admin@spam.com',
             password=bcrypt.generate_password_hash('eggs').decode('utf-8'),
-            is_admin=True
+            is_admin=True,
+            is_customer= False
         ),
         User(
             name='John Cleese',
             email='someone@spam.com',
-            password=bcrypt.generate_password_hash('12345').decode('utf-8')
+            password=bcrypt.generate_password_hash('12345').decode('utf-8'),
+            is_admin=True,
+            is_customer= False
         ), 
          User(
             name='Kamram',
             email='k@spam.com',
-            password=bcrypt.generate_password_hash('12345').decode('utf-8')
+            password=bcrypt.generate_password_hash('12345').decode('utf-8'),
+            is_admin=False,
+            is_customer= True
         ), 
 
     ]

@@ -7,7 +7,6 @@ from models.orders import Order, OrderSchema
 orders_bp = Blueprint('orders', __name__, url_prefix='/orders')
 
 @orders_bp.route('/')
-
 def all_orders():
   
      stmt = db.select(Order)
@@ -72,4 +71,4 @@ def update_one_order(id):
         db.session.commit()      
         return OrderSchema().dump(orders)
     else:
-        return {'error': f'Card not found with id {id}'}, 404
+        return {'error': f'Order not found with id {id}'}, 404
