@@ -1,8 +1,10 @@
 from flask import Blueprint
-from init import db, bcrypt
+from init import db, ma, bcrypt
 #from datetime import date
 from models.product import Product #ProductSchema
 from models.user import User
+from models.order import Order
+from models.categories import Category
 #from models.user import User
 #from models.comment import Comment
 
@@ -64,59 +66,56 @@ def seed_db():
     db.session.commit()
     
     categories = [
-        category (
-             name = "Candles"
-             description = "handmade candles by one of our artisans"
+        Category (
+             name = "Candles",
+             description = "handmade candles by one of our artisans",
              abiltiy = "ASD, ADHD"
-        )
-         category (
-             name = "Resume writing"
-             description = "A professional writing service offered by one of our freelancers"
-             abiltiy = "Dsylexia, Hearing difficulties"
-        )
-         category (
-             name = "Artwork"
-             description = "arts produced by one of our creatives"
+        ),
+         Category (
+             name = "Resume writing",
+             description = "A professional writing service offered by one of our freelancers",
+             abiltiy = "Dsylexia, Hearing difficulties",
+        ),
+         Category (
+             name = "Artwork",
+             description = "arts produced by one of our creatives",
              abiltiy = "wishes to not include"
-        )
+        ),
     ]
-     db.session.add_all(categories)
+    db.session.add_all(categories)
     db.session.commit()
 
     orders = [
-        order (
-            user_id = "007"
-            product_id = "123"
-            amount = $50
-            quantity = 1
+        Order (
+            user_id = "007",
+            product_id = "123",
+            amount = 50,
+            quantity = 1,
             status = True
 
-        )
-        order (
-            user_id = "008"
-            product_id = "333"
-            amount = 150
-            quantity = 2
+        ),
+        Order (
+            user_id = "008",
+            product_id = "333",
+            amount = 150,
+            quantity = 2,
             status = True
 
-        )
-        order (
-            user_id = "009"
-            product_id = "222"
-            amount = 30
-            quantity = 3
+        ),
+        Order (
+            user_id = "009",
+            product_id = "222",
+            amount = 30,
+            quantity = 3,
             status = True
 
-        )
+        ),
     ]
     
     
-     db.session.add_all(orders)
+    db.session.add_all(orders)
     db.session.commit()
     
-    
-    
-    
-    
+
     print("Tables seeded")
     

@@ -12,21 +12,21 @@ def all_orders():
   
      stmt = db.select(Order)
      orders = db.session.scalars(stmt).all()
-     return ProductSchema(many=True).dump(orders)
+     return OrderSchema(many=True).dump(orders)
 
 @orders_bp.route('/<int:id>/')
 def one_order(id):
     stmt = db.select(Order).filter_by(id=id)
     orders = db.session.scalar(stmt)
     if order:
-        return ProductSchema(many=True).dump(order)
+        return OrderSchema(many=True).dump(order)
     else: 
         return {'error': f'Order not found with id {id}'}, 404
 
 
 @orders_bp('/', methods=['POST'])
 @jwt_required()
-def create_product():
+def create_order():
   
     data = OrderSchema().load(request.json)
 
@@ -45,7 +45,7 @@ def create_product():
 
 @orders_bp.route('/<int:id>/', methods=['DELETE'])
 @jwt_required()
-def delete_one_product(id):
+def delete_one_order(id):
     authorize()
 
     stmt = db.select(Order).filter_by(id=id)
