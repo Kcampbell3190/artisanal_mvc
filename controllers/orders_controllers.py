@@ -17,9 +17,9 @@ def all_orders():
 @orders_bp.route('/<int:id>/')
 def one_order(id):
     stmt = db.select(Order).filter_by(id=id)
-    orders = db.session.scalar(stmt)
+    order = db.session.scalar(stmt)
     if order:
-        return OrderSchema(many=True).dump(order)
+        return OrderSchema().dump(order)
     else: 
         return {'error': f'Order not found with id {id}'}, 404
 
@@ -33,7 +33,7 @@ def create_order():
     order = Order(
         user_id = request.json['user_id'],
         product_id= request.json['product_id'],
-        amount = request.json['amout'],
+        amount = request.json['amount'],
         status = request.json['status'],
         quantity = request.json['quantity'],
     )
@@ -46,14 +46,14 @@ def create_order():
 @orders_bp.route('/<int:id>/', methods=['DELETE'])
 @jwt_required()
 def delete_one_order(id):
-    authorize()
+   # authorize()
 
     stmt = db.select(Order).filter_by(id=id)
     order= db.session.scalar(stmt)
     if order:
         db.session.delete(order)
         db.session.commit()
-        return {'message': f"Order '{order.title}' deleted successfully"}
+        return {'message': f"Order '{order.id}' deleted successfully"}
     else:
         return {'error': f'Order not found with id {id}'}, 404
 
@@ -70,6 +70,6 @@ def update_one_order(id):
         order.amount = request.json.get('amount') or order.amount
         order.quantity = request.json.get('quantity') or order.quantity
         db.session.commit()      
-        return OrderSchema().dump(orders)
+        return OrderSchema().dump(order)
     else:
         return {'error': f'Order not found with id {id}'}, 404

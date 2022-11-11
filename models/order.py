@@ -7,7 +7,7 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True) 
     amount = db.Column(db.Integer, nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
-    status = db.Column(db.Boolean, default=False)
+    status = db.Column(db.String, nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False) 

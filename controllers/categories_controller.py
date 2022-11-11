@@ -45,7 +45,7 @@ def create_category():
 @categories_bp.route('/<int:id>/', methods=['DELETE'])
 @jwt_required()
 def delete_one_category(id):
-    authorize()
+    #authorize()
 
     stmt = db.select(Category).filter_by(id=id)
     category = db.session.scalar(stmt)
@@ -63,10 +63,11 @@ def update_one_category(id):
     stmt = db.select(Category).filter_by(id=id)
     category = db.session.scalar(stmt)
     if category:
-        category.category_id = request.json.get('category_id') or product.category_id
+       # category.category_id = request.json.get('category_id') or category.category_id
         category.description = request.json.get('description') or category.description
         category.name= request.json.get('name') or category.name
+        category.ability = request.json.get('ability') or category.ability
         db.session.commit()      
-        return CategorySchema().dump(categories)
+        return CategorySchema().dump(category)
     else:
         return {'error': f'Category not found with id {id}'}, 404

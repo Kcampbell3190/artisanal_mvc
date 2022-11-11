@@ -14,7 +14,7 @@ class User(db.Model):
     is_customer = db.Column(db.Boolean, default=False)
     #is_customer
     #product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False)
-
+    order_id = db.Column(db.Integer, db.ForeignKey("orders.id"), nullable=False)
 class UserSchema(ma.Schema):
     """Help"""
     users = fields.List(fields.Nested('UserSchema', exclude=['user']))

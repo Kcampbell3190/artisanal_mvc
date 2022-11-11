@@ -51,21 +51,22 @@ def seed_db():
     db.session.commit()
     
     categories = [
+       
         Category (
             
              name = "Candles",
              description = "handmade candles by one of our artisans",
-             abiltiy = "ASD, ADHD"
+             ability = "ASD, ADHD",
         ),
          Category (
              name = "Resume writing",
              description = "A professional writing service offered by one of our freelancers",
-             abiltiy = "Dsylexia, Hearing difficulties",
+             ability = "Dsylexia, Hearing difficulties",
         ),
          Category (
              name = "Artwork",
              description = "arts produced by one of our creatives",
-             abiltiy = "wishes to not include"
+             ability = "wishes to not include"
         ),
     ]
     db.session.add_all(categories)
@@ -107,24 +108,24 @@ def seed_db():
         Order (
             user_id = "1",
             product_id = "1",
-            amount = 50,
-            quantity = 1,
+            amount = "50",
+            quantity = "1",
             status = True
 
         ),
         Order (
             user_id = "1",
             product_id = "1",
-            amount = 150,
-            quantity = 2,
+            amount = "150",
+            quantity = "2",
             status = True
 
         ),
         Order (
             user_id = "1",
             product_id = "1",
-            amount = 30,
-            quantity = 3,
+            amount = "30",
+            quantity = "3",
             status = True
 
         ),
