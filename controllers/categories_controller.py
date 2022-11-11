@@ -32,7 +32,6 @@ def create_category():
     data = CategorySchema().load(request.json)
 
     category = Category(
-       category_id = request.json['category_id'],
         name = request.json['name'],
         description = request.json['description'],
         ability = request.json['ability'],

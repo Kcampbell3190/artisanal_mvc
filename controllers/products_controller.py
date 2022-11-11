@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from init import db
 from datetime import date
 from models.product import Product, ProductSchema
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 
 
 products_bp = Blueprint('products', __name__, url_prefix='/products')
@@ -24,7 +25,7 @@ def one_product(id):
         return {'error': f'Product not found with id {id}'}, 404
 
 
-@products_bp('/', methods=['POST'])
+@products_bp.route('/', methods=['POST'])
 @jwt_required()
 def create_product():
   

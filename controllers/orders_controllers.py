@@ -1,7 +1,8 @@
 from flask import Blueprint, request
 from init import db
 from datetime import date
-from models.orders import Order, OrderSchema
+from models.order import Order, OrderSchema
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 
 
 orders_bp = Blueprint('orders', __name__, url_prefix='/orders')
@@ -23,7 +24,7 @@ def one_order(id):
         return {'error': f'Order not found with id {id}'}, 404
 
 
-@orders_bp('/', methods=['POST'])
+@orders_bp.route('/', methods=['POST'])
 @jwt_required()
 def create_order():
   
