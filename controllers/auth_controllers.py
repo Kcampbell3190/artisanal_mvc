@@ -1,5 +1,5 @@
 from flask import Blueprint, request, abort
-from init import db, bcrypt
+from init import db, bcrypt, jwt
 from datetime import timedelta
 from models.user import User, UserSchema
 from sqlalchemy.exc import IntegrityError
@@ -20,20 +20,21 @@ def get_users():
 @auth_bp.route('/register/', methods=['POST'])
 def auth_register():
     try:
+       
         # Create a new User model instance from the user_info
         user = User(
             email = request.json['email'],
             password = bcrypt.generate_password_hash(request.json['password']).decode('utf8'),
             name = request.json.get('name')
         )
-        # Add and commit user to DB
+        
         db.session.add(user)
         db.session.commit()
         # Respond to client
         return UserSchema(exclude=['password']).dump(user), 201
     except IntegrityError:
         return {'error': 'Email address already in use'}, 409
-
+        
 
 @auth_bp.route('/login/', methods=['POST'])
 def auth_login():

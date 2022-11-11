@@ -1,5 +1,5 @@
 from flask import Blueprint
-from init import db, ma, bcrypt
+from init import db, bcrypt
 from models.product import Product #ProductSchema
 from models.user import User
 from models.order import Order
@@ -24,6 +24,7 @@ def drop_db():
 def seed_db():
     users = [
         User(
+            name = 'Oli',
             email='admin@spam.com',
             password=bcrypt.generate_password_hash('eggs').decode('utf-8'),
             is_admin=True,
