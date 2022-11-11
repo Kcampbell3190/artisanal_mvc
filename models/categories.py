@@ -12,6 +12,6 @@ class Category(db.Model):
 
     #product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False)
 
-class ProductSchema(ma.Schema):
+class CategorySchema(ma.Schema):
     class Meta: 
         fields = ('id', 'name', 'description', 'description', 'ability',)

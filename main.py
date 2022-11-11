@@ -2,6 +2,9 @@ from flask import Flask
 from init import db, ma, bcrypt, jwt
 from cli_command import db_commands
 from controllers.auth_controllers import auth_bp
+from controllers.categories_controller import categories_bp
+from controllers.orders_controllers import orders_bp
+from controllers.products_controller import products_bp
 
 import os
 
@@ -31,6 +34,9 @@ def create_app():
    # app.register_blueprint(products_bp)
     app.register_blueprint(db_commands)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(categories_bp)
+    app.register_blueprint(orders_bp)
+    app.register_blueprint(products_bp)
 
     return app
 

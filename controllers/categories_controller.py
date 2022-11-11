@@ -1,10 +1,11 @@
 from flask import Blueprint, request
-from init import db
+from init import db, bcrypt, jwt
 from datetime import date
-from models.product import Product, ProductSchema
+from models.categories import Category, CategorySchema
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 
 
-category_bp = Blueprint('categories', __name__, url_prefix='/categories')
+categories_bp = Blueprint('categories', __name__, url_prefix='/categories')
 
 @categories_bp.route('/')
 
@@ -17,14 +18,14 @@ def all_categories():
 @categories_bp.route('/<int:id>/')
 def one_category(id):
     stmt = db.select(Category).filter_by(id=id)
-    products = db.session.scalar(stmt)
+    category = db.session.scalar(stmt)
     if category:
-        return CategorySchema(many=True).dump(categories)
+        return CategorySchema().dump(category)
     else: 
         return {'error': f'Category not found with id {id}'}, 404
 
 
-@categories_bp('/', methods=['POST'])
+@categories_bp.route('/create/', methods=['POST'])
 @jwt_required()
 def create_category():
   
@@ -61,7 +62,7 @@ def delete_one_category(id):
 @jwt_required()
 def update_one_category(id):
     stmt = db.select(Category).filter_by(id=id)
-   category = db.session.scalar(stmt)
+    category = db.session.scalar(stmt)
     if category:
         category.category_id = request.json.get('category_id') or product.category_id
         category.description = request.json.get('description') or category.description
