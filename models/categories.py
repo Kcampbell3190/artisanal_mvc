@@ -13,5 +13,6 @@ class Category(db.Model):
 
     
 class CategorySchema(ma.Schema):
+    category = fields.List(fields.Nested('CategorySchema', exclude=['category']))
     class Meta: 
         fields = ('id', 'name', 'description', 'ability',)

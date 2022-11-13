@@ -2,9 +2,6 @@ from init import db, ma
 from marshmallow import fields
 
 
-
-
-
 class Product(db.Model):
     """product table"""
     __tablename__ = 'products'
@@ -12,7 +9,7 @@ class Product(db.Model):
     title = db.Column(db.String(100))
     description = db.Column(db.Text)
     date = db.Column(db.Date)
-    status = db.Column(db.Boolean)
+    status = db.Column(db.String)
     creative = db.Column(db.String)
 
 
@@ -22,6 +19,7 @@ class Product(db.Model):
 
 
 class ProductSchema(ma.Schema):
+    products = fields.List(fields.Nested('ProductSchema', exclude=['products']))
     class Meta: 
-        fields = ('id', 'title', 'description', 'status', 'creative', 'date',)
+        fields = ('id', 'title', 'description', 'status', 'creative', 'date', "user_id", "category_id",)
 

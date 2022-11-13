@@ -2,7 +2,7 @@ from flask import Blueprint
 from init import db, bcrypt
 from models.product import Product #ProductSchema
 from models.user import User
-from models.order import Order
+from models.order import Order, OrderSchema
 from models.categories import Category
 
 
@@ -28,7 +28,8 @@ def seed_db():
             email='admin@spam.com',
             password=bcrypt.generate_password_hash('eggs').decode('utf-8'),
             is_admin=True,
-            is_customer= False
+            is_customer= False,
+            #order_id= "1"
         ),
         User(
             name='John Cleese',
@@ -78,7 +79,7 @@ def seed_db():
             category_id = "1",
             title = "start first item",
             description = "stage 1 starting the products table",
-            status = True,
+            status = "available",
             creative = "Lachlan and ASD"
            ),
     
@@ -87,7 +88,7 @@ def seed_db():
             category_id = "2",
             title = "second item",
             description = "stage 2 seeding database",
-            status = True,
+            status = "available",
             creative = "Jenny and ADHD",
            ),
         Product(
@@ -95,7 +96,7 @@ def seed_db():
             category_id = "3",
             title = "third item",
             description = "stage 3 seeding database",
-            status = True,
+            status = "available",
             creative = "Jonathan and Depression"
 
         ),
